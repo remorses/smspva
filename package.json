@@ -1,0 +1,19 @@
+{
+  "name": "smspva",
+  "version": "1.0.1",
+  "description": "node package to interact with smspva.com API",
+  "main": "src/index.js",
+  "homepage": "https://github.com/owner/project#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "smspva",
+    "api"
+  ],
+  "author": "Tommaso De Rossi, xmorse <beats.by.morse@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.3.0"
+  }
+}
