@@ -24,4 +24,4 @@ jobs:
         - image: cistuff/bump
       steps:
         - checkout
-        - run: cd src && GITHUB_TOKEN=$GITHUB_TOKEN /bump
+        - run: GITHUB_TOKEN=$GITHUB_TOKEN /bump
