@@ -1,0 +1,28 @@
+version: 2.1
+
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+       
+       - bump_version:
+       - deploy:
+           requires:
+              - bump_version
+
+
+jobs:
+  deploy:
+      docker:
+        - image: cistuff/deploy-npm
+      steps:
+          - checkout
+          - run: /deploy
+
+  bump_version:
+      docker:
+        - image: cistuff/bump
+      steps:
+        - checkout
+        - run: cd src && GITHUB_TOKEN=$GITHUB_TOKEN /bump

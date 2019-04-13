@@ -1,9 +1,14 @@
 {
   "name": "smspva",
+  "_comment": "[bump]",
   "version": "1.0.1",
   "description": "node package to interact with smspva.com API",
   "main": "src/index.js",
   "homepage": "https://github.com/owner/project#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/owner/project#readme"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
