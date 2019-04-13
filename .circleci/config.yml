@@ -5,8 +5,7 @@ workflows:
   version: 2
   deploy:
     jobs:
-       
-       - bump_version:
+       - bump_version
        - deploy:
            requires:
               - bump_version
