@@ -71,6 +71,7 @@ const createClient = ({
                         metod: 'get_sms',
                         country: getCountry(country),
                         service,
+                        id,
                         apikey,
                     }
                 }),
