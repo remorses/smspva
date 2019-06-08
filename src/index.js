@@ -2,6 +2,7 @@
 const url = require('url')
 const fetch = require('node-fetch')
 const getCountry = require('./getCountry')
+const getPrefix = require('./getPrefix')
 const getService = require('./getService')
 
 const toJson = async (data) => {
@@ -52,7 +53,7 @@ const createClient = ({
             ).then(toJson)
             .then(({ balance }) => Number(balance))
         },
-        getNumber: (country = _country) => {
+        getNumber: (country = _country, withCountryCode=true) => {
             return fetch(
                 url.format({
                     ...defaults,
@@ -64,6 +65,23 @@ const createClient = ({
                     }
                 }),
             ).then(toJson)
+            .then(data => {
+                if (!data.number) throw Error(
+                    'no number in response ' + JSON.stringify(data, null, '\t'))
+                return data
+            })
+            .then(({ number, ...rest}) => {
+                if (withCountryCode)
+                    return {
+                        number: getPrefix(country) + number,
+                        ...rest
+                    }
+                else
+                    return {
+                        number,
+                        ...rest
+                    }
+            })
         },
         getSms: (id, country = _country) => {
             return fetch(
