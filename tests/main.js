@@ -54,4 +54,4 @@ it('gets the price', async () => {
 
 
 
-it('wait sms', () => client.waitSms(9))
+// it('wait sms', () => client.waitSms(9))
