@@ -89,7 +89,7 @@ const createClient = ({
                 }),
             ).then(toJson).then(raise)
         },
-        getAvailability: (id, country = _country) => {
+        getAvailability: (country = _country) => {
             return fetch(
                 url.format({
                     ...defaults,
@@ -102,6 +102,34 @@ const createClient = ({
                 }),
             ).then(toJson)//.then(raise)
         },
+        ban: (id) => {
+            return fetch(
+                url.format({
+                    ...defaults,
+                    query: {
+                        metod: 'ban',
+                        id,
+                        service,
+                        apikey,
+                    }
+                }),
+            ).then(toJson)//.then(raise)
+        },
+        
+        getPrice: () => {
+            return fetch(
+                url.format({
+                    ...defaults,
+                    query: {
+                        metod: 'get_service_price',
+                        service,
+                        apikey,
+                    }
+                }),
+            ).then(toJson)//.then(raise)
+        },
+
+
     }
 }
 
