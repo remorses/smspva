@@ -49,7 +49,8 @@ const createClient = ({
                         apikey,
                     }
                 }),
-            ).then(toJson).then(raise)
+            ).then(toJson)
+            .then(({ balance }) => Number(balance))
         },
         getNumber: (country = _country) => {
             return fetch(
@@ -62,7 +63,7 @@ const createClient = ({
                         apikey,
                     }
                 }),
-            ).then(toJson).then(raise)
+            ).then(toJson)
         },
         getSms: (id, country = _country) => {
             return fetch(
@@ -76,7 +77,9 @@ const createClient = ({
                         apikey,
                     }
                 }),
-            ).then(toJson).then(raise)
+            )
+            .then(toJson)
+            .then(({ sms=null }) => sms)
         },
         denial: (id, country = _country) => {
             return fetch(
@@ -90,7 +93,7 @@ const createClient = ({
                         apikey,
                     }
                 }),
-            ).then(toJson).then(raise)
+            ).then(toJson)
         },
         getAvailability: (country = _country) => {
             return fetch(
@@ -103,7 +106,9 @@ const createClient = ({
                         apikey,
                     }
                 }),
-            ).then(toJson)//.then(raise)
+            )
+            .then(toJson)
+            .then(({ online }) => Number(online))
         },
         ban: (id) => {
             return fetch(
@@ -116,7 +121,7 @@ const createClient = ({
                         apikey,
                     }
                 }),
-            ).then(toJson)//.then(raise)
+            ).then(toJson)
         },
         
         getPrice: () => {
@@ -129,14 +134,16 @@ const createClient = ({
                         apikey,
                     }
                 }),
-            ).then(toJson)//.then(raise)
+            )
+            .then(toJson)
+            .then(({ price }) => Number(price))
         },
     }
 
     client.waitSms = async id => {
         let waited = 0 // seconds
         while(1) {
-            let { sms } = await client.getSms(id)
+            let sms = await client.getSms(id)
             if (sms) return sms
             await sleep(20)
             waited += 20
