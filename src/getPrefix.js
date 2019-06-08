@@ -1,5 +1,5 @@
 
-
+const countries = require('./countries.json')
 
 
 const getPrefix = (country) => {
@@ -14,6 +14,8 @@ const getPrefix = (country) => {
 
 
 module.exports = getPrefix
+
+
 
 // const getCountry = require('./getCountry')
 

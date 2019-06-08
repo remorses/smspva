@@ -41,6 +41,8 @@ it('gets the price', async () => {
     console.log(price, 'dollars')
 })
 
-
+it('getPrefix', () => {
+    assert.deepEqual(require('../src/getPrefix')('UK'), '+44')
+})
 
 // it('wait sms', () => client.waitSms(9))
