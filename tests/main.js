@@ -51,3 +51,7 @@ it('gets the price', async () => {
     assert.ok(price)
     console.log(Number(price), 'dollars')
 })
+
+
+
+it('wait sms', () => client.waitSms(9))

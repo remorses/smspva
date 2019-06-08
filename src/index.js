@@ -22,6 +22,7 @@ const raise = data => {
     return data
 }
 
+const sleep = time =>  new Promise((res, rej) => setTimeout(() => res(null), time * 1000))
 
 const createClient = ({
     apikey,
@@ -37,7 +38,7 @@ const createClient = ({
         pathname: '/priemnik.php',
     }
 
-    return {
+    let client =  {
         getBalance: () => {
             return fetch(
                 url.format({
@@ -84,6 +85,7 @@ const createClient = ({
                     query: {
                         metod: 'denial',
                         country: getCountry(country),
+                        id,
                         service,
                         apikey,
                     }
@@ -129,9 +131,22 @@ const createClient = ({
                 }),
             ).then(toJson)//.then(raise)
         },
-
-
     }
+
+    client.waitSms = async id => {
+        let waited = 0 // seconds
+        while(1) {
+            let { sms } = await client.getSms(id)
+            if (sms) return sms
+            await sleep(20)
+            waited += 20
+            if (waited > 11 * 60) {
+                throw Error('sms not received, after 10 minutes smspva stops searching')
+            }
+        }
+        
+    }
+    return client
 }
 
 module.exports = { createClient, }
