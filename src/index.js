@@ -156,6 +156,33 @@ const createClient = ({
             .then(toJson)
             .then(({ price }) => Number(price))
         },
+
+        getExistingNumber: async (number) => { // without state prefix
+            return fetch(
+                url.format({
+                    ...defaults,
+                    query: {
+                        metod: 'get_proverka',
+                        number, // 9685156912
+                        service,
+                        apikey,
+                    }
+                }),
+            )
+            .then(toJson)
+            .then((data) => {
+                if (!(data.response == 'ok'))
+                    throw new Error(data.error_msg || JSON.stringify(data))
+                return data
+            })
+            .then(data => {
+                return {
+                    number: data.number,
+                    id: data.id,
+                    ...data,
+                }
+            })
+        }
     }
 
     client.waitSms = async (id, log= x => null) => {

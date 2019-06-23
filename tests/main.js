@@ -1,6 +1,7 @@
 
 const { createClient } = require('../src')
 const { validate } = require('jsonschema')
+const { log, sleep } = require('./support')
 const assert = require('assert').strict
 
 
@@ -33,6 +34,18 @@ it('gets avaliability', async() => {
 //     assert.ok(id)
 //     console.log(number, id)
 // })
+
+it('gets a existing number', async () => {
+    log(await client.getBalance())
+    assert.ok(process.env.existing_number)
+    const data = await client.getExistingNumber(process.env.existing_number)
+    log(data)
+    await sleep(200)
+    log(await client.getBalance())
+    log(await client.denial(data.id))
+    await sleep(200)
+    log(await client.getBalance())
+})
 
 
 it('gets the price', async () => {
