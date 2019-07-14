@@ -1,7 +1,7 @@
 {
   "name": "smspva",
   "_comment": "[bump]",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "node package to interact with smspva.com API",
   "main": "src/index.js",
   "homepage": "https://github.com/owner/project#readme",
