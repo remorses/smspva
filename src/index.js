@@ -187,7 +187,7 @@ const createClient = ({
 
     client.waitSms = async (id, log= x => null) => {
         let waited = 0 // seconds
-        while(1) {
+        while(true) {
             let sms = await client.getSms(id)
             log('received sms ' + sms)
             if (sms) return sms

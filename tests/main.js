@@ -5,7 +5,7 @@ const { log, sleep } = require('./support')
 const assert = require('assert').strict
 
 
-if (!process.env.KEY) exit(1)
+if (!process.env.KEY) throw ''
 
 const pretty = data => console.log(JSON.stringify(data, null, '\t'))
 
@@ -28,12 +28,15 @@ it('gets avaliability', async() => {
 })
 
 
-// it('gets a number', async () => {
-//     const { number, id } = await client.getNumber('UK')
-//     assert.ok(number)
-//     assert.ok(id)
-//     console.log(number, id)
-// })
+it.skip('gets a number and sms with waitSms', async () => {
+    const { number, id } = await client.getNumber('UK')
+    assert.ok(number)
+    assert.ok(id)
+    console.log(number, id)
+    const code = await client.waitSms(id, console.log)
+    console.log(code)
+    assert.ok(code)
+})
 
 it('gets a existing number', async () => {
     log(await client.getBalance())
@@ -57,5 +60,7 @@ it('gets the price', async () => {
 it('getPrefix', () => {
     assert.deepEqual(require('../src/getPrefix')('UK'), '+44')
 })
+
+
 
 // it('wait sms', () => client.waitSms(9))
